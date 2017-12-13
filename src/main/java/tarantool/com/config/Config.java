@@ -8,13 +8,13 @@ public class Config {
 //	public static String address="localhost";
 //	public static int nettyPort=9090;
 //	public static int tarantoolPort=3301;
-//	// spaceIds
+////	// spaceIds
 	public static int balanceSpaceID = 512;
 	public static int transactionsSpaceID = 513;
 	public static int spendsSpaceID = 514;
 	public static int campaignMapSpaceID = 515;
-//
-//	// stored procedure parameters used for queries in local machine
+////
+////	// stored procedure parameters used for queries in local machine
 //	public static int advertiserId = 1;
 //	public static int campaignId = 2;
 //	public static int balanceDate = 5555;

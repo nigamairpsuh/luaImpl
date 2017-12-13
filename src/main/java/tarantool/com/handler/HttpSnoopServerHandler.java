@@ -45,6 +45,7 @@ import io.netty.handler.stream.ChunkedFile;
 import io.netty.util.CharsetUtil;
 import tarantool.com.client.TaranToolClientUtil;
 import tarantool.com.config.Config;
+import tarantool.com.server.NettyServer;
 
 
 public class HttpSnoopServerHandler extends SimpleChannelInboundHandler<Object> {
@@ -150,7 +151,8 @@ public class HttpSnoopServerHandler extends SimpleChannelInboundHandler<Object> 
 			}
 		}
 		
-		TaranToolClientUtil.getDetailedCampaign();
+		NettyServer.counter++;
+		TaranToolClientUtil.getDetailedCampaign(NettyServer.counter);
 	}
 	
 	private static void sendError(ChannelHandlerContext ctx, HttpResponseStatus status) {
