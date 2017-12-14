@@ -159,7 +159,7 @@ public class TaranToolClientUtil {
 		// }
 	}
 
-	static TarantoolClient getClient() {
+	public static TarantoolClient getClient() {
 		if (client != null)
 			return client;
 
