@@ -13,6 +13,7 @@ import tarantool.com.config.Config;
 public class NettyServer {
 
 	public static int counter = 0;
+	public static int queryIndex = 0;
 	
 	public static void main(String[] args) throws Exception {
 	

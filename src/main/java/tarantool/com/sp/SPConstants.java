@@ -44,4 +44,5 @@ public class SPConstants {
 	public static final String updateAdvertiserCampMaxDailyBudget= "updateAdvertiserCampMaxDailyBudget";
 	public static final String getPublisherTransactionDetailsByApp= "getPublisherTransactionDetailsByApp";
 	public static final String insertLandingPage= "insertLandingPage";
+	public static final String insertAdvertiserLedgerTX= "insertAdvertiserLedgerTX";
 }

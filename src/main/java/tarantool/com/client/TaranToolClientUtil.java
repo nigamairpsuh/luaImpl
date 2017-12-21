@@ -1,6 +1,8 @@
 package tarantool.com.client;
 
 import static tarantool.com.config.Config.address;
+import static tarantool.com.server.NettyServer.queryIndex;
+import static tarantool.com.client.DataSet.dataset;
 import static tarantool.com.config.Config.password;
 import static tarantool.com.config.Config.tarantoolPort;
 import static tarantool.com.config.Config.username;
@@ -56,8 +58,8 @@ public class TaranToolClientUtil {
 	public static void getDetailedCampaign(int counter) {
 		try {
 			client = getClient();		
-			double i = Math.random();
-			int qureyIndex = (int) (i * 3);
+//			double i = Math.random();
+//			int qureyIndex = (int) (i * 3);
 //			if (qureyIndex == 1)
 //				sp = "airpushdb.ProcedureList().GetDetailedCampaignBalance(" + 304107 + "," + 2120907 + "," + 20171213
 //						+ ")";
@@ -66,26 +68,37 @@ public class TaranToolClientUtil {
 //						+ ")";
 
 //			selecting different parameters for SP
-			if (qureyIndex == 0){
-				Config.advertiserId = 228849;
-				Config.campaignId = 2118232;
-				Config.balanceDate = 20171121;
-			}
-			else if (qureyIndex == 1){
-				Config.advertiserId = 304107;
-				Config.campaignId = 2120907;
-				Config.balanceDate = 20171213;
-			}
-			else if (qureyIndex == 2){
-				Config.advertiserId = 304003;
-				Config.campaignId = 2120018;
-				Config.balanceDate = 20171208;
-			}
+			int sleep = 1;
+//			if (qureyIndex == 0){
+//				Config.advertiserId = 228849;
+//				Config.campaignId = 2118232;
+//				Config.balanceDate = 20171121;
+//				sleep = 0;
+//			}
+//			else if (qureyIndex == 1){
+//				Config.advertiserId = 304003;
+//				Config.campaignId = 2120018;
+//				Config.balanceDate = 20171208;
+//				sleep = 1;
+//			}
+//			else if (qureyIndex == 2){
+//				Config.advertiserId = 304107;
+//				Config.campaignId = 2120907;
+//				Config.balanceDate = 20171213;				
+//				sleep = 5;
+//			}
 			
 			bw.write(counter + "- Executing Lua SP implementation\n");
 			System.out.println(counter + "- Executing Lua SP implementation...");
 			long startTime = System.currentTimeMillis();
 			
+			
+			Future<List<?>> SPResult = client.asyncOps().call("test", dataset[queryIndex][0], dataset[queryIndex][1],
+					dataset[queryIndex][2], sleep);
+			
+			queryIndex++;
+			if(queryIndex==20)
+				queryIndex=0;
 			// sync operation
 			// List<?> res1 = client.syncOps().eval(sp, 1);
 
@@ -102,8 +115,8 @@ public class TaranToolClientUtil {
 //			throws procedure not defined error because it looks for a procedure named - "airpushdb.ProcedureList().GetDetailedCampaignBalance"
 //			so created a reference to procedure in db-
 //			test = airpushdb.ProcedureList().GetDetailedCampaignBalance
-			Future<List<?>> SPResult = client.asyncOps().call("test", Config.advertiserId, Config.campaignId,
-					Config.balanceDate);
+//			Future<List<?>> SPResult = client.asyncOps().call("test", Config.advertiserId, Config.campaignId,
+//					Config.balanceDate, sleep);
 			List<?> SPResultList = SPResult.get();
 			long endTime = System.currentTimeMillis();
 
